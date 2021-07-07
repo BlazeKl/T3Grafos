@@ -70,6 +70,7 @@ def add_arista(event,i, x, y):
             wframe = tk.Frame(warn)
             wframe.grid(row=0, column=0)
             tk.Label(wframe, text="No se permiten bucles").grid(row=0, column=0)
+            tk.Button(wframe, text="Ok", command=lambda: warn.destroy()).grid(row=1, column=0)
         else:
             ing_peso(i,j)
             peso = int(peso)
