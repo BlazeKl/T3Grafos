@@ -7,6 +7,7 @@
 #Oscar Munos Retamal
 #
 #librerias
+import collections
 import tkinter as tk
 from typing import Collection
 from funciones.clasegrafo import grafo
@@ -41,31 +42,41 @@ def add_arista(event,i, x, y):
         if peso.isdigit():
             var1.destroy()
 
-    def ing_peso():
+    def ing_peso(a, b):
+        text_label = "Peso de '" + chr(97+b) + "' a '" + chr(97+a) + "'"
+        print(text_label)
         nbox = tk.Tk()
+        nbox.title("Peso")
+        nbox.resizable(0,0)
         frame = tk.Frame(nbox)
         frame.grid(row=0, column=0)
+        tex = tk.Label(frame, text=text_label)
+        tex.grid(row=0, column=0)
         ent = tk.Entry(frame)
-        ent.grid(row=0, column=0)
+        ent.grid(row=1, column=0)
         btn = tk.Button(frame, text="Ok", command=lambda: closew(nbox,ent))
-        btn.grid(row=1, column=0)
+        btn.grid(row=2, column=0)
         nbox.wait_window()
 
     if click:
         print("insertando arista end =", chr(97+i))
-        ing_peso()
-        peso = int(peso)
         if grafo_n.get_p(j,i) == 0:
                 cant_a += 1
         if i == j:
             print("bucle")
-            arista = lienzo.create_line(x, y, x-25, y, x-25, y+25, x, y+25, x, y, fill='black', width=2, smooth=1)
-            grafo_n.set_p(peso,i,j)
+            warn = tk.Tk()
+            warn.title("Error")
+            warn.resizable(0,0)
+            wframe = tk.Frame(warn)
+            wframe.grid(row=0, column=0)
+            tk.Label(wframe, text="No se permiten bucles").grid(row=0, column=0)
         else:
+            ing_peso(i,j)
+            peso = int(peso)
             arista = lienzo.create_line(pos_x, pos_y, x, y, fill='black', width=2)
             grafo_n.set_p(peso,i,j)
             grafo_n.set_p(peso,j,i)
-        lienzo.tag_lower(arista)
+            lienzo.tag_lower(arista)
         print("(",+x,",",+y,")")
         click=0
     else:
@@ -79,7 +90,7 @@ def add_arista(event,i, x, y):
 def detalles():
     menu = tk.Tk()
     menu.title('Detalles de grafo')
-    menu.resizable(height=0, width=0)
+    menu.resizable(0,0)
     frame1 = tk.Frame(menu)
     frame1.grid(row=0, column=0)
     text = tk.Label(frame1, text="Peso")
@@ -130,7 +141,7 @@ def limpiar_canvas():
 ventana = tk.Tk()
 ventana.geometry('640x510+0+0')
 ventana.title('Editor de grafos')
-ventana.resizable(height=0, width=0)
+ventana.resizable(0,0)
 frame_canv = tk.Frame(ventana)
 frame_canv.pack(side="top", fill="both")
 lienzo = tk.Canvas(frame_canv, width=640, height=480, background='light blue')
@@ -138,8 +149,12 @@ lienzo.grid(row=0, column=0)
 lienzo.bind('<Button-1>', add_nodo)
 frame_btn = tk.Frame(ventana)
 frame_btn.pack(side="top", fill="both")
-btn= tk.Button(frame_btn, text="Detalles", command=detalles)
+btn = tk.Button(frame_btn, text="Detalles", command=detalles)
 btn.grid(row=0, column=0)
 btn = tk.Button(frame_btn, text="Limpiar", command=limpiar_canvas)
 btn.grid(row=0, column=1)
+btn = tk.Button(frame_btn, text="PRIM", command=detalles)
+btn.grid(row=0, column=2)
+btn = tk.Button(frame_btn, text="KRUSKAL", command=detalles)
+btn.grid(row=0, column=3)
 ventana.mainloop()
