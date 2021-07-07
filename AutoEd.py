@@ -12,7 +12,7 @@ from typing import Collection
 from funciones.clasegrafo import grafo
 
 #variables
-global pos_x, pos_y, click, vert, cant_v, cant_a, j, grafo_n
+global pos_x, pos_y, click, vert, cant_v, cant_a, j, grafo_n, peso
 pos_x = 0
 pos_y = 0
 click = 0
@@ -21,6 +21,7 @@ cant_v = 0
 cant_a = 0
 j = 0
 grafo_n = grafo(1000)
+peso = ""
 
 def add_nodo(event):
     global vert, cant_v
@@ -32,31 +33,38 @@ def add_nodo(event):
     cant_v += 1
 
 def add_arista(event,i, x, y):
-    global pos_x, pos_y, j, grafo_n, cant_a
+    global pos_x, pos_y, j, grafo_n, cant_a, peso
     global click
-    if click:
-        print("insertando arista end =", chr(97+i))
+    def closew(var1,var2):
+        global peso
+        peso = var2.get()
+        if peso.isdigit():
+            var1.destroy()
+
+    def ing_peso():
         nbox = tk.Tk()
         frame = tk.Frame(nbox)
         frame.grid(row=0, column=0)
         ent = tk.Entry(frame)
         ent.grid(row=0, column=0)
-        btn = tk.Button(frame, text="Ok", command=lambda: nbox.destroy())
+        btn = tk.Button(frame, text="Ok", command=lambda: closew(nbox,ent))
         btn.grid(row=1, column=0)
-        nbox.mainloop()
+        nbox.wait_window()
+
+    if click:
+        print("insertando arista end =", chr(97+i))
+        ing_peso()
+        peso = int(peso)
         if grafo_n.get_p(j,i) == 0:
                 cant_a += 1
         if i == j:
             print("bucle")
             arista = lienzo.create_line(x, y, x-25, y, x-25, y+25, x, y+25, x, y, fill='black', width=2, smooth=1)
-            grafo_n.set_n(1,i,j)
-            grafo_n.sum_p(1,i,j)
+            grafo_n.set_p(peso,i,j)
         else:
             arista = lienzo.create_line(pos_x, pos_y, x, y, fill='black', width=2)
-            grafo_n.set_n(1,i,j)
-            grafo_n.set_n(1,j,i)
-            grafo_n.sum_p(1,i,j)
-            grafo_n.sum_p(1,j,i)
+            grafo_n.set_p(peso,i,j)
+            grafo_n.set_p(peso,j,i)
         lienzo.tag_lower(arista)
         print("(",+x,",",+y,")")
         click=0

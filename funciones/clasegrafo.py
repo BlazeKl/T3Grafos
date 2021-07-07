@@ -11,8 +11,8 @@ class grafo:
     def set_n(self,x,i,j):
         self.g_matr[i][j] = x
 
-    def sum_p(self,x,i,j):
-        self.g_peso[i][j] += x
+    def set_p(self,x,i,j):
+        self.g_peso[i][j] = x
 
     def get_n(self,i,j):
         return self.g_matr[i][j]
