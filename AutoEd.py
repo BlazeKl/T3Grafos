@@ -8,6 +8,7 @@
 #
 #librerias
 import tkinter as tk
+from typing import Collection
 from funciones.clasegrafo import grafo
 
 #variables
@@ -35,6 +36,14 @@ def add_arista(event,i, x, y):
     global click
     if click:
         print("insertando arista end =", chr(97+i))
+        nbox = tk.Tk()
+        frame = tk.Frame(nbox)
+        frame.grid(row=0, column=0)
+        ent = tk.Entry(frame)
+        ent.grid(row=0, column=0)
+        btn = tk.Button(frame, text="Ok", command=lambda: nbox.destroy())
+        btn.grid(row=1, column=0)
+        nbox.mainloop()
         if grafo_n.get_p(j,i) == 0:
                 cant_a += 1
         if i == j:
