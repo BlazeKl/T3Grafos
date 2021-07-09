@@ -1,6 +1,6 @@
 from .numregiones import cantidad_regiones
-from .prim import prim_td
-from .kruskal import kruskal_td
+from .prim import prim_tp
+from .kruskal import kruskal_tp
 
 class grafo:
     def __init__(self,N):
@@ -34,3 +34,6 @@ class grafo:
 
     def n_regiones(self,a,v):
         return cantidad_regiones(a,v)
+
+    def l_kruskal(self,limit):
+        return kruskal_tp(self.g_matr,limit)

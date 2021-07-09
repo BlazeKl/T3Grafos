@@ -138,6 +138,9 @@ def limpiar_canvas():
     cant_a = 0
     grafo_n = grafo(1000)
 
+def pintar_k():
+    print(grafo_n.l_kruskal(cant_v,cant_a))
+
 #inicio ventana
 ventana = tk.Tk()
 ventana.geometry('640x510+0+0')
@@ -156,6 +159,6 @@ btn = tk.Button(frame_btn, text="Limpiar", command=limpiar_canvas)
 btn.grid(row=0, column=1)
 btn = tk.Button(frame_btn, text="PRIM", command=detalles)
 btn.grid(row=0, column=2)
-btn = tk.Button(frame_btn, text="KRUSKAL", command=detalles)
+btn = tk.Button(frame_btn, text="KRUSKAL", command=pintar_k)
 btn.grid(row=0, column=3)
 ventana.mainloop()
