@@ -124,6 +124,8 @@ def detalles():
     tabla = tk.Entry(frame3, width=5, bg='black', fg='white')
     tabla.grid(row=10, column=1)
     tabla.insert(tk.END, grafo_n.n_regiones(cant_a,cant_v))
+    vertd = [[0 for x in range(6)] for y in range(2)]
+    print(vertd[3])
     menu.mainloop
 
 def limpiar_canvas():
