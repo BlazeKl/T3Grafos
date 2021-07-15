@@ -36,4 +36,4 @@ class grafo:
         return cantidad_regiones(a,v)
 
     def l_kruskal(self,limit):
-        return kruskal_tp(self.g_matr,limit)
+        return kruskal_tp(self.g_peso,limit)

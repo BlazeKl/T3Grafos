@@ -40,7 +40,8 @@ def add_arista(event,i, x, y):
         global peso
         peso = var2.get()
         if peso.isdigit():
-            var1.destroy()
+            if peso != "0":
+                var1.destroy()
 
     def ing_peso(a, b):
         text_label = "Peso de '" + chr(97+b) + "' a '" + chr(97+a) + "'"
@@ -118,14 +119,38 @@ def detalles():
     tabla.grid(row=0, column=0)
     tabla.insert(tk.END, "P")
     frame3 = tk.Frame(menu)
-    frame3.grid(row=4, column=0)
+    frame3.grid(row=2, column=0)
     text = tk.Label(frame3, text="Numero de regiones : ")
-    text.grid(row=10, column=0)
+    text.grid(row=0, column=0)
     tabla = tk.Entry(frame3, width=5, bg='black', fg='white')
-    tabla.grid(row=10, column=1)
+    tabla.grid(row=0, column=1)
     tabla.insert(tk.END, grafo_n.n_regiones(cant_a,cant_v))
-    vertd = [[0 for x in range(6)] for y in range(2)]
-    print(vertd[3])
+    kruskal = grafo_n.l_kruskal(cant_v)
+    frame4 = tk.Frame(menu)
+    frame4.grid(row=3, column=0)
+    text = tk.Label(frame4, text="Kruskal")
+    text.grid(row=0, column=0)
+    frame5 = tk.Frame(menu)
+    frame5.grid(row=4, column=0)
+    for ii in range(0, cant_v+1):
+        tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
+        tabla.grid(row=0, column=ii)
+        tabla.insert(tk.END, chr(96+ii))
+    for ii in range(0, cant_v+1):
+        tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
+        tabla.grid(row=ii, column=0)
+        tabla.insert(tk.END, chr(96+ii))
+    for ii in range(0, cant_v):
+        for jj in range(0, cant_v):
+            if kruskal[ii][jj] > 0:
+                tabla = tk.Entry(frame5, width=5, bg='blue', fg='white')
+            else:
+                tabla = tk.Entry(frame5, width=5, bg='black', fg='white')
+            tabla.grid(row=1+ii, column=1+jj)
+            tabla.insert(tk.END, kruskal[ii][jj])
+    tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
+    tabla.grid(row=0, column=0)
+    tabla.insert(tk.END, "K")
     menu.mainloop
 
 def limpiar_canvas():
@@ -141,7 +166,17 @@ def limpiar_canvas():
     grafo_n = grafo(1000)
 
 def pintar_k():
-    print(grafo_n.l_kruskal(cant_v,cant_a))
+    global vert
+    print(grafo_n.l_kruskal(cant_v))
+    kruskal = grafo_n.l_kruskal(cant_v)
+    for ii in range(0,cant_v):
+        for jj in range(0,cant_v):
+            if kruskal[ii][jj] != 0:
+                lienzo.itemconfig(vert[ii], fill="green")
+                lienzo.itemconfig(vert[jj], fill="green")
+                # print(vert[ii].coords())
+                # print(vert[jj].coords())
+
 
 #inicio ventana
 ventana = tk.Tk()
