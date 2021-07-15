@@ -18,6 +18,7 @@ pos_x = 0
 pos_y = 0
 click = 0
 vert = [0 for x in range(999)]
+arista = [[0 for x in range(999)] for y in range(999)]
 cant_v = 0
 cant_a = 0
 j = 0
@@ -75,10 +76,10 @@ def add_arista(event,i, x, y):
         else:
             ing_peso(i,j)
             peso = int(peso)
-            arista = lienzo.create_line(pos_x, pos_y, x, y, fill='black', width=2)
+            arista[i][j] = lienzo.create_line(pos_x, pos_y, x, y, fill='black', width=2)
             grafo_n.set_p(peso,i,j)
             grafo_n.set_p(peso,j,i)
-            lienzo.tag_lower(arista)
+            lienzo.tag_lower(arista[i][j])
         print("(",+x,",",+y,")")
         click=0
     else:
@@ -171,11 +172,13 @@ def pintar_k():
     kruskal = grafo_n.l_kruskal(cant_v)
     for ii in range(0,cant_v):
         for jj in range(0,cant_v):
+            lienzo.itemconfig(arista[ii][jj], fill="light blue")
+    for ii in range(0,cant_v):
+        for jj in range(0,cant_v):
             if kruskal[ii][jj] != 0:
-                lienzo.itemconfig(vert[ii], fill="green")
-                lienzo.itemconfig(vert[jj], fill="green")
-                # print(vert[ii].coords())
-                # print(vert[jj].coords())
+                lienzo.itemconfig(vert[ii], fill="red")
+                lienzo.itemconfig(vert[jj], fill="red")
+                lienzo.itemconfig(arista[ii][jj], fill="red")
 
 
 #inicio ventana
