@@ -152,6 +152,34 @@ def detalles():
     tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
     tabla.grid(row=0, column=0)
     tabla.insert(tk.END, "K")
+    frame6 = tk.Frame(menu)
+    frame6.grid(row=5, column=0)
+    prim = grafo_n.l_prim(cant_v,0)
+    text = tk.Label(frame6, text="PRIM")
+    text.grid(row=0, column=0)
+    frame7 = tk.Frame(menu)
+    frame7.grid(row=6, column=0)
+    for ii in range(0, cant_v+1):
+        tabla = tk.Entry(frame7, width=5, bg='green', fg='white')
+        tabla.grid(row=0, column=ii)
+        tabla.insert(tk.END, chr(96+ii))
+    for ii in range(0, cant_v+1):
+        tabla = tk.Entry(frame7, width=5, bg='green', fg='white')
+        tabla.grid(row=ii, column=0)
+        tabla.insert(tk.END, chr(96+ii))
+    for ii in range(0, cant_v):
+        for jj in range(0, cant_v):
+            if prim[ii][jj] > 0:
+                tabla = tk.Entry(frame7, width=5, bg='blue', fg='white')
+            else:
+                tabla = tk.Entry(frame7, width=5, bg='black', fg='white')
+            tabla.grid(row=1+ii, column=1+jj)
+            tabla.insert(tk.END, prim[ii][jj])
+    tabla = tk.Entry(frame7, width=5, bg='green', fg='white')
+    tabla.grid(row=0, column=0)
+    tabla.insert(tk.END, "P")
+    print(cant_v)
+    grafo_n.l_primXD(cant_v,0)
     menu.mainloop
 
 def limpiar_canvas():
@@ -168,7 +196,7 @@ def limpiar_canvas():
 
 def pintar_k():
     global vert
-    print(grafo_n.l_kruskal(cant_v))
+    #print(grafo_n.l_kruskal(cant_v))
     kruskal = grafo_n.l_kruskal(cant_v)
     for ii in range(0,cant_v):
         for jj in range(0,cant_v):
@@ -180,6 +208,19 @@ def pintar_k():
                 lienzo.itemconfig(vert[jj], fill="red")
                 lienzo.itemconfig(arista[ii][jj], fill="red")
 
+def pintar_p():
+    global vert
+    #print(grafo_n.l_prim(cant_v, 0))
+    prim = grafo_n.l_prim(cant_v, 0)
+    for ii in range(0,cant_v):
+        for jj in range(0,cant_v):
+            lienzo.itemconfig(arista[ii][jj], fill="light blue")
+    for ii in range(0,cant_v):
+        for jj in range(0,cant_v):
+            if prim[ii][jj] != 0:
+                lienzo.itemconfig(vert[ii], fill="red")
+                lienzo.itemconfig(vert[jj], fill="red")
+                lienzo.itemconfig(arista[ii][jj], fill="red")
 
 #inicio ventana
 ventana = tk.Tk()
@@ -197,7 +238,7 @@ btn = tk.Button(frame_btn, text="Detalles", command=detalles)
 btn.grid(row=0, column=0)
 btn = tk.Button(frame_btn, text="Limpiar", command=limpiar_canvas)
 btn.grid(row=0, column=1)
-btn = tk.Button(frame_btn, text="PRIM", command=detalles)
+btn = tk.Button(frame_btn, text="PRIM", command=pintar_p)
 btn.grid(row=0, column=2)
 btn = tk.Button(frame_btn, text="KRUSKAL", command=pintar_k)
 btn.grid(row=0, column=3)

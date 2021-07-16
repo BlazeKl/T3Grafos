@@ -1,6 +1,7 @@
 from .numregiones import cantidad_regiones
 from .prim import prim_tp
 from .kruskal import kruskal_tp
+from .primXD import adyacencia_peso
 
 class grafo:
     def __init__(self,N):
@@ -37,3 +38,9 @@ class grafo:
 
     def l_kruskal(self,limit):
         return kruskal_tp(self.g_peso,limit)
+
+    def l_prim(self,limit,init):
+        return prim_tp(self.g_peso,limit,init)
+
+    def l_primXD(self,limit,init):
+        return adyacencia_peso(self.g_peso,limit,init)
