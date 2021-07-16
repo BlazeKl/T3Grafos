@@ -10,7 +10,7 @@ def prim_tp(x, n, v_ini):
     print(v_added)
     cont = 0
     contaux=1
-    def get_min(arr, pos_y, min_a, state):
+    def get_min(arr, pos_y, min_a, state, aux):
         # for i in range(0,n):
         #     print(arr[i])
         for i in range(0,n):
@@ -20,11 +20,13 @@ def prim_tp(x, n, v_ini):
                 min_a = arr[i]
                 pos_y = i
                 print("primer menor: ",+min_a ," en ",chr(97+pos_y))
+                aux = aux + 1
             if min_a > arr[i] and arr[i] != 0 and i not in v_added:
                 min_a = arr[i]
                 pos_y = i
                 print("nuevo menor: ",+min_a ," en ",chr(97+pos_y))
-        return min_a, pos_y, min_a, state;
+                aux = aux + 1
+        return min_a, pos_y, min_a, state, aux;
 
     while cont < n:
         #aqui va codigo para chequear nuevos vertices
@@ -33,14 +35,17 @@ def prim_tp(x, n, v_ini):
         hy = 0         #columna aux
         state = 0
         min_a = 0
+        aux = 0
         for c in range(0,n):  #recorro el arreglo de vertices agregados al arbol
             if v_added[c] != -1:
                 print("Buscando: ",chr(97+v_added[c]))
                 for i in range(0,n):    #arreglo para recorrer la matriz de peso
                         if i == v_added[c]:
                             print("Encontrado: ",chr(97+v_added[c]))
-                            min, hy, min_a, state= get_min(x[i], hy, min_a, state)
-                            hx = i #Arreglar posicion erronea
+                            aux2 = aux
+                            min, hy, min_a, state, aux= get_min(x[i], hy, min_a, state, aux)
+                            if(aux2 != aux):
+                                hx = i #Arreglar posicion erronea
 
                             # print(min)
                             # print(hy)
