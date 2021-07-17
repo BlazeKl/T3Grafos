@@ -304,7 +304,7 @@ if option == 1:
 
 if option == 2:
     def est_check(num):
-        
+        print("a")
     ventana = tk.Tk()
     # ventana.geometry('640x510+0+0')
     ventana.title('Editor de automatas')
