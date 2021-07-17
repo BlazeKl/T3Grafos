@@ -59,6 +59,7 @@ def adyacencia_peso(x, n):
         # Ordena la lista G.E en forma no decendente por su peso w
         # En este caso usamos el ordenador dentro de python
         edges = list(graph['edges'])
+        print(edges)
         edges.sort()
         
         print ("Aristas ordenadas:")
@@ -96,7 +97,7 @@ def adyacencia_peso(x, n):
         
     graph = {
     'vertices': vertices,
-    'edges':set(v_agregados[i] for i in range(0,n+2))
+    'edges':set(v_agregados[i] for i in range(0,cont))
 
     }
 

@@ -196,16 +196,28 @@ def limpiar_canvas():
 def pintar_k():
     global vert
     #print(grafo_n.l_kruskal(cant_v))
-    kruskal = grafo_n.l_kruskal(cant_v)
+    kruskal = grafo_n.l_kruskal2(cant_v)
     for ii in range(0,cant_v):
         for jj in range(0,cant_v):
             lienzo.itemconfig(arista[ii][jj], fill="light blue")
-    for ii in range(0,cant_v):
-        for jj in range(0,cant_v):
-            if kruskal[ii][jj] != 0:
-                lienzo.itemconfig(vert[ii], fill="red")
-                lienzo.itemconfig(vert[jj], fill="red")
-                lienzo.itemconfig(arista[ii][jj], fill="red")
+    for ii in kruskal:
+        print(ii)
+        print(ord(ii[1])-97,ord(ii[2])-97)
+        z = ord(ii[1])-97
+        w = ord(ii[2])-97
+        lienzo.itemconfig(vert[z], fill="red")
+        lienzo.itemconfig(vert[w], fill="red")
+        lienzo.itemconfig(arista[z][w], fill="red")
+        lienzo.itemconfig(arista[w][z], fill="red")
+    # for ii in range(0,cant_v):
+    #     for jj in range(0,cant_v):
+    #         lienzo.itemconfig(arista[ii][jj], fill="light blue")
+    # for ii in range(0,cant_v):
+    #     for jj in range(0,cant_v):
+    #         if kruskal[ii][jj] != 0:
+    #             lienzo.itemconfig(vert[ii], fill="red")
+    #             lienzo.itemconfig(vert[jj], fill="red")
+    #             lienzo.itemconfig(arista[ii][jj], fill="red")
 
 def pintar_p():
     global vert, init_v, opts, cant_v
@@ -239,6 +251,7 @@ def pintar_p():
             if prim[ii][jj] != 0:
                 lienzo.itemconfig(vert[ii], fill="red")
                 lienzo.itemconfig(vert[jj], fill="red")
+                print(ii,jj)
                 lienzo.itemconfig(arista[ii][jj], fill="red")
 
 #inicio ventanas
@@ -290,8 +303,18 @@ if option == 1:
     ventana.mainloop()
 
 if option == 2:
+    def est_check(num):
+        
     ventana = tk.Tk()
-    ventana.geometry('640x510+0+0')
+    # ventana.geometry('640x510+0+0')
     ventana.title('Editor de automatas')
     ventana.resizable(0,0)
+    frame1 = tk.Frame(ventana)
+    frame1.grid(row=0, column=0)
+    text = tk.Label(frame1, text="Cantidad de estados: ")
+    text.grid(row=0, column=0)
+    ent = tk.Entry(frame1)
+    ent.grid(row=0, column=1)
+    btn = tk.Button(frame1, text="OK")
+    btn.grid(row=0, column=2)
     ventana.mainloop()
