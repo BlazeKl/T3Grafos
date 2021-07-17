@@ -7,9 +7,9 @@
 #Oscar Munos Retamal
 #
 #librerias
-import collections
 import tkinter as tk
-from typing import Collection
+from tkinter import ttk
+import graphviz as gv
 from funciones.clasegrafo import grafo
 
 #variables
@@ -152,34 +152,33 @@ def detalles():
     tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
     tabla.grid(row=0, column=0)
     tabla.insert(tk.END, "K")
-    frame6 = tk.Frame(menu)
-    frame6.grid(row=5, column=0)
-    prim = grafo_n.l_prim(cant_v,0)
-    text = tk.Label(frame6, text="PRIM")
-    text.grid(row=0, column=0)
-    frame7 = tk.Frame(menu)
-    frame7.grid(row=6, column=0)
-    for ii in range(0, cant_v+1):
-        tabla = tk.Entry(frame7, width=5, bg='green', fg='white')
-        tabla.grid(row=0, column=ii)
-        tabla.insert(tk.END, chr(96+ii))
-    for ii in range(0, cant_v+1):
-        tabla = tk.Entry(frame7, width=5, bg='green', fg='white')
-        tabla.grid(row=ii, column=0)
-        tabla.insert(tk.END, chr(96+ii))
-    for ii in range(0, cant_v):
-        for jj in range(0, cant_v):
-            if prim[ii][jj] > 0:
-                tabla = tk.Entry(frame7, width=5, bg='blue', fg='white')
-            else:
-                tabla = tk.Entry(frame7, width=5, bg='black', fg='white')
-            tabla.grid(row=1+ii, column=1+jj)
-            tabla.insert(tk.END, prim[ii][jj])
-    tabla = tk.Entry(frame7, width=5, bg='green', fg='white')
-    tabla.grid(row=0, column=0)
-    tabla.insert(tk.END, "P")
-    print(cant_v)
-    grafo_n.l_primXD(cant_v,0)
+    # frame6 = tk.Frame(menu)
+    # frame6.grid(row=5, column=0)
+    # prim = grafo_n.l_prim(cant_v,0)
+    # text = tk.Label(frame6, text="PRIM")
+    # text.grid(row=0, column=0)
+    # frame7 = tk.Frame(menu)
+    # frame7.grid(row=6, column=0)
+    # for ii in range(0, cant_v+1):
+    #     tabla = tk.Entry(frame7, width=5, bg='green', fg='white')
+    #     tabla.grid(row=0, column=ii)
+    #     tabla.insert(tk.END, chr(96+ii))
+    # for ii in range(0, cant_v+1):
+    #     tabla = tk.Entry(frame7, width=5, bg='green', fg='white')
+    #     tabla.grid(row=ii, column=0)
+    #     tabla.insert(tk.END, chr(96+ii))
+    # for ii in range(0, cant_v):
+    #     for jj in range(0, cant_v):
+    #         if prim[ii][jj] > 0:
+    #             tabla = tk.Entry(frame7, width=5, bg='blue', fg='white')
+    #         else:
+    #             tabla = tk.Entry(frame7, width=5, bg='black', fg='white')
+    #         tabla.grid(row=1+ii, column=1+jj)
+    #         tabla.insert(tk.END, prim[ii][jj])
+    # tabla = tk.Entry(frame7, width=5, bg='green', fg='white')
+    # tabla.grid(row=0, column=0)
+    # tabla.insert(tk.END, "P")
+    print(grafo_n.l_kruskal2(cant_v))
     menu.mainloop
 
 def limpiar_canvas():
@@ -209,9 +208,29 @@ def pintar_k():
                 lienzo.itemconfig(arista[ii][jj], fill="red")
 
 def pintar_p():
-    global vert
-    #print(grafo_n.l_prim(cant_v, 0))
-    prim = grafo_n.l_prim(cant_v, 0)
+    global vert, init_v, opts, cant_v
+    opts = [0 for i in range(cant_v)]
+    for ii in range(0,cant_v):
+        opts[ii] = chr(97+ii)
+    def closew(vent, ent, opts):
+        global init_v
+        if ent.get() in opts:
+            init_v = ent.get()
+            vent.destroy()
+    winit_v = tk.Tk()
+    winit_v.title("Vertice")
+    winit_v.resizable(0,0)
+    framew = tk.Frame(winit_v)
+    framew.grid(row=0, column=0)
+    tex = tk.Label(framew, text="Ingrese vertice inicial")
+    tex.grid(row=0, column=0)
+    ent = ttk.Combobox(framew,values=opts)
+    ent.grid(row=1, column=0)
+    btn = tk.Button(framew, text="Ok", command=lambda: closew(winit_v, ent, opts))
+    btn.grid(row=2, column=0)
+    winit_v.wait_window()
+    print("Vertice inicial ",+ord(init_v)-97)
+    prim = grafo_n.l_prim(cant_v, ord(init_v)-97)
     for ii in range(0,cant_v):
         for jj in range(0,cant_v):
             lienzo.itemconfig(arista[ii][jj], fill="light blue")
@@ -222,24 +241,57 @@ def pintar_p():
                 lienzo.itemconfig(vert[jj], fill="red")
                 lienzo.itemconfig(arista[ii][jj], fill="red")
 
-#inicio ventana
-ventana = tk.Tk()
-ventana.geometry('640x510+0+0')
-ventana.title('Editor de grafos')
-ventana.resizable(0,0)
-frame_canv = tk.Frame(ventana)
-frame_canv.pack(side="top", fill="both")
-lienzo = tk.Canvas(frame_canv, width=640, height=480, background='light blue')
-lienzo.grid(row=0, column=0)
-lienzo.bind('<Button-1>', add_nodo)
-frame_btn = tk.Frame(ventana)
-frame_btn.pack(side="top", fill="both")
-btn = tk.Button(frame_btn, text="Detalles", command=detalles)
-btn.grid(row=0, column=0)
-btn = tk.Button(frame_btn, text="Limpiar", command=limpiar_canvas)
-btn.grid(row=0, column=1)
-btn = tk.Button(frame_btn, text="PRIM", command=pintar_p)
-btn.grid(row=0, column=2)
-btn = tk.Button(frame_btn, text="KRUSKAL", command=pintar_k)
-btn.grid(row=0, column=3)
-ventana.mainloop()
+#inicio ventanas
+global option
+option = 0
+def sel_arb(ven):
+    global option
+    option = 1
+    ven.destroy()
+
+def sel_aut(ven):
+    global option
+    option = 2
+    ven.destroy()
+
+root = tk.Tk()
+root.title("AutoEd")
+root.resizable(0,0)
+framr = tk.Frame(root)
+framr.grid(row=0, column=0)
+text = tk.Label(framr, text="Eliga editor")
+text.grid(row=0, column=0)
+bt = tk.Button(framr, text="Arboles", command=lambda: sel_arb(root))
+bt.grid(row=1, column=0)
+bt = tk.Button(framr, text="Automatas", command=lambda: sel_aut(root))
+bt.grid(row=1, column=1)
+root.wait_window()
+
+if option == 1:
+    ventana = tk.Tk()
+    ventana.geometry('640x510+0+0')
+    ventana.title('Editor de arboles')
+    ventana.resizable(0,0)
+    frame_canv = tk.Frame(ventana)
+    frame_canv.pack(side="top", fill="both")
+    lienzo = tk.Canvas(frame_canv, width=640, height=480, background='light blue')
+    lienzo.grid(row=0, column=0)
+    lienzo.bind('<Button-1>', add_nodo)
+    frame_btn = tk.Frame(ventana)
+    frame_btn.pack(side="top", fill="both")
+    btn = tk.Button(frame_btn, text="Detalles", command=detalles)
+    btn.grid(row=0, column=0)
+    btn = tk.Button(frame_btn, text="Limpiar", command=limpiar_canvas)
+    btn.grid(row=0, column=1)
+    btn = tk.Button(frame_btn, text="PRIM", command=pintar_p)
+    btn.grid(row=0, column=2)
+    btn = tk.Button(frame_btn, text="KRUSKAL", command=pintar_k)
+    btn.grid(row=0, column=3)
+    ventana.mainloop()
+
+if option == 2:
+    ventana = tk.Tk()
+    ventana.geometry('640x510+0+0')
+    ventana.title('Editor de automatas')
+    ventana.resizable(0,0)
+    ventana.mainloop()

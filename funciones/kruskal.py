@@ -24,7 +24,7 @@ def kruskal_tp(x, n):
         for i in range(0,n):
             for j in range(0,n):
                 if x[i][j] == f_min(x, cont) and j > i and x[i][j] != 0 and x[i][j] != y[i][j]:
-                    print(chr(96+i),chr(96+j),x[i][j])
+                    print(chr(97+i),chr(97+j),x[i][j])
                     #arreglo = [chr(96+i),chr(96+j),x[i][j]]
                     cant_a = cant_a + 1
                     bagregari = True

@@ -6,7 +6,10 @@
 
 def cantidad_regiones(a,v):
     if a >= 1 and v >= 2:
-        regiones = 2 - v + a
+        if v > a * 2:
+            regiones = 2 - (2 * a) + a 
+        else:
+            regiones = 2 - v + a
         return regiones
     else:
         return 0
