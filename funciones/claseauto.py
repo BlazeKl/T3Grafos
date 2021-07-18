@@ -1,11 +1,12 @@
+from .drawauto import draw
 
 class automata:
     def __init__(self):
         self.estados = []
         self.transiciones = []
-        self.inical = 0
-        self.alfa = 0
-        self.terminal = []
+        self.inical = []
+        self.alfa = []
+        self.terminal = ()
 
     def set_estados(self,input):
         self.estados = input
@@ -31,5 +32,5 @@ class automata:
     def app_final(self,input):
         self.terminal.append(input)
 
-    # def bdraw(self):
-    #     draw(self.estados,self.transiciones,self.inical,self.alfa,self.terminal)
+    def bdraw(self):
+        draw(self.estados,self.transiciones,self.inical,self.alfa,self.terminal)

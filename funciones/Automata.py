@@ -51,7 +51,7 @@ def draw(alfabeto, estados, inicio, trans, final):
 print ("Ingrese Cantidad de Estados: ");
 cant_estados=int(input())
 estados=[]
-for i in range(1,cant_estados+1):
+for i in range(1,cant_estados+1): 
     nuevoEstado=input("Ingrese Estado N°{}: ".format(i))
     nuevoEstado=nuevoEstado.upper()
     estados.append(nuevoEstado)
@@ -61,56 +61,93 @@ cant_Alf=int(input("Ingrese la cantidad de Alfabeto: "))
 alf=[]
 for i in range(0,cant_Alf):
     
-    nuevoAlf=input("Ingrese Alfabeto N°{}: ".format(i))
+    nuevoAlf=input("Ingrese Alfabeto N°{}: ".format(i+1))
     alf.append(nuevoAlf)
 
-for i in range(0,cant_estados):
-    print(estados[i])
+# for i in range(0,cant_estados):
+#     print(estados[i])
+
+matriz_3d= [["a" for i in range(0,cant_estados)]for j in range(0,cant_Alf)]
+# for i in range(cant_estados):
+#     for j in range(cant_Alf):
+#         print(matriz_3d[i][j])
+
 
 # Crear las Transiciones
 contador=0;
 trans=[]
-while(True):
-    elemen=[]
-    i=1
-    while(True):
-        trans_1=input("Ingrese Elemento {}: ".format(i))
-        trans_1=trans_1.upper()
-        if trans_1 in estados:
-            break
-        else:
-            print("Elemento Invalido ")
-    i=i+1
-    while(True):
-        trans_2=input("Ingrese Elemento{}: ".format(i))
-        trans_2=trans_2.upper()
-        if trans_2 in estados:
-            break
-        else:
-            print("Elemento Invalido ")
 
-    while(True):
-        alfa=input("Ingrese Elemento de Alfabeto: ")
-        if alfa in alf:
-            break
-        else:
-            print("Alfabeto Invalido ")
+
+#------>AFND<----------- 
+
+for i in range(0,cant_estados):
+    for j in range(0,cant_Alf):
+        num_trans=int(input("Cuantas Transiciones tiene el estado {} ".format(estados[i])+" con alfabeto {}: ".format(alf[j])))
+        for k in range(0,num_trans):
+            elemen=[]
+            string_estados=input("Ingrese la transición {} ".format(k+1)+ "para {}".format(estados[i])+" con {}: ".format(alf[j]))
+            string_estados=string_estados.upper()
+            if matriz_3d[i][j]=='a':
+                matriz_3d[i][j]=string_estados
+            else:
+                matriz_3d[i][j]=matriz_3d[i][j]+","+string_estados
+            
+            elemen.append(estados[i])
+            elemen.append(string_estados)
+            elemen.append(alf[j])
+            trans.append(elemen)
+for i in range(0,cant_estados):
+    for j in range(0,cant_Alf):
+        print(matriz_3d[i][j], end=" ")
+    if j==cant_Alf-1:
+        print("\n")    
     
-    elemen.append(trans_1)
-    elemen.append(trans_2)
-    elemen.append(alfa)
-    trans.append(elemen)
-    contador=contador+1;
-    sig=[0,1]
-    while(True):
-        siguiente=int(input("0=si\n1=no\n Desea agregar otra transición?: "))
-        if siguiente in sig:
-            break
-        else:
-            print("Opción Invalida ")
 
-    if siguiente==1:
-        break
+
+
+# ------------->AFD<-----------------
+
+# while(True):
+#     elemen=[]
+#     i=1
+#     while(True):
+#         trans_1=input("Ingrese Elemento {}: ".format(i))
+#         trans_1=trans_1.upper()
+#         if trans_1 in estados:
+#             break
+#         else:
+#             print("Elemento Invalido ")
+#     i=i+1
+#     while(True):
+#         trans_2=input("Ingrese Elemento{}: ".format(i))
+#         trans_2=trans_2.upper()
+#         if trans_2 in estados:
+#             break
+#         else:
+#             print("Elemento Invalido ")
+
+#     while(True):
+#         alfa=input("Ingrese Elemento de Alfabeto: ")
+#         if alfa in alf:
+#             break
+#         else:
+#             print("Alfabeto Invalido ")
+    
+#     elemen.append(trans_1)
+#     elemen.append(trans_2)
+#     elemen.append(alfa)
+#     trans.append(elemen)
+#     contador=contador+1;
+#     sig=[0,1]
+#     while(True):
+#         siguiente=int(input("0=si\n1=no\n Desea agregar otra transición?: "))
+#         if siguiente in sig:
+#             break
+#         else:
+#             print("Opción Invalida ")
+
+#     if siguiente==1:
+#         break
 # Mostrar las Transiciones
 # for i in range(0,contador):
 #     print(trans[1])
@@ -143,7 +180,6 @@ for i in range(1,cant_Terminal+1):
 #     # alf = [0,1]
 #     # terminal = ("Q2","Q5")
 
+
+
 draw(alf, estados, inicial, trans, terminal)
-
-
-

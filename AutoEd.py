@@ -11,6 +11,7 @@ import tkinter as tk
 from tkinter import ttk
 import graphviz as gv
 from funciones.clasegrafo import grafo
+from funciones.claseauto import automata
 
 #variables
 global pos_x, pos_y, click, vert, cant_v, cant_a, j, grafo_n, peso
@@ -303,15 +304,55 @@ if option == 1:
     ventana.mainloop()
 
 if option == 2:
-    def paso4(num2,num1,inter):
-        print("a")
-        ends = [0 for x in range(0,num1)]
-        print(inter[1].get())
+    def final(num1,num2,tran,vinit,fin):
+        print("paso final")
+        print("//Lista de datos//")
+        print("Estados: ",+num1)
+        print("Letras: ",+num2)
+        print("Transiciones: ")
+        for ii in range(0,num1*num2):
+            print(tran[ii].get())
+        print("Inicial: ", vinit.get())
+        print("Finales")
+        for ii in range(0,num1):
+            print("Q",+ii,": ",+fin[ii].get())
+        estados = []
+        transiciones = []
+        inical = []
+        alfa = []
+        terminal = ()
+        for ii in range(0,num1):
+            estados.append("Q",+str(ii))
+        for ii in range(0,num2*num1):
+            transiciones.append(("Q","Q","Q"))
+
+    def paso4(num2,num1,tran): # num1 = cantidad de estados, num2 = cantidad de letras (abc), inter = arreglo de intersecciones
+        print("paso 3")
+        for ii in range(0,num2*num1):
+            if not tran[ii].get():
+                return 0
+        print("Listo")
+        l_est = [0 for x in range(0,num1)]  
+        cbox = [0 for x in range(0,num1)]  
+        b_fin = [tk.IntVar() for x in range(0,num1)]        #arreglo de booleanos
+        for ii in range(0,num1):
+            l_est[ii] = "Q"+str(ii)
         frame4 = tk.Frame(ventana)
         frame4.grid(row=3, column=0)
+        text = tk.Label(frame4, text="Inicial")
+        text.grid(row=0, column=0)
+        vinit = ttk.Combobox(frame4, values=l_est, width=5)
+        vinit.grid(row=0, column=1)
+        text = tk.Label(frame4, text="Finales")
+        text.grid(row=0, column=2)
+        for ii in range(0,num1):
+            cbox[ii] = tk.Checkbutton(frame4, text=l_est[ii], variable=b_fin[ii], onvalue=1, offvalue=0, fg="green")
+            cbox[ii].grid(row=0, column=3+ii)
+        btn = tk.Button(frame4, text="Draw", command=lambda: final(num1,num2,tran,vinit,b_fin))
+        btn.grid(row=1,column=0)    
 
     def paso3(num2,num1):
-        print("b")
+        print("paso 2")
         if num2.isdigit():
             if int(num2) != 0:
                 print("es numero > 0")
@@ -328,6 +369,7 @@ if option == 2:
             opts[ii] = "Q"+str(ii)
         frame3 = tk.Frame(ventana)
         frame3.grid(row=2, column=0)
+        cont = 0
         for ii in range(0,num1):
             texto = "Conexiones para Q"+str(ii)
             text = tk.Label(frame3, text=texto)
@@ -337,15 +379,16 @@ if option == 2:
                 texto = "Transicion para "+chr(97+jj)
                 text = tk.Label(frame3, text=texto)
                 text.grid(row=fila, column=0)
-                tran[jj] = ttk.Combobox(frame3,values=opts)
-                tran[jj].grid(row=fila, column=1)
+                tran[cont] = ttk.Combobox(frame3,values=opts, width=5)
+                tran[cont].grid(row=fila, column=1)
                 fila = fila + 1
+                cont = cont + 1
         btn = tk.Button(frame3, text="OK", command=lambda: paso4(num2,num1,tran))
         btn.grid(row=fila+1, column=0)
         
 
     def paso2(num1): #Ingresar abc, verifica si el numero de estados es un numero > 0
-        print("a")
+        print("paso 1")
         if num1.isdigit():
             if int(num1) > 0:
                 print("es numero > 0")
@@ -359,7 +402,7 @@ if option == 2:
         frame2.grid(row=1, column=0)
         text = tk.Label(frame2, text="Cantidad de letras (abc..): ")
         text.grid(row=0, column=0)
-        ent2 = tk.Entry(frame2)
+        ent2 = tk.Entry(frame2, width=5)
         ent2.grid(row=0, column=1)
         btn = tk.Button(frame2, text="OK", command=lambda: paso3(ent2.get(),num1))
         btn.grid(row=0, column=2)
@@ -372,7 +415,7 @@ if option == 2:
     frame1.grid(row=0, column=0)
     text = tk.Label(frame1, text="Cantidad de estados: ")
     text.grid(row=0, column=0)
-    ent = tk.Entry(frame1)
+    ent = tk.Entry(frame1, width=5)
     ent.grid(row=0, column=1)
     btn = tk.Button(frame1, text="OK", command=lambda: paso2(ent.get()))
     btn.grid(row=0, column=2)
