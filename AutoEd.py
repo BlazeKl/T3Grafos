@@ -303,8 +303,59 @@ if option == 1:
     ventana.mainloop()
 
 if option == 2:
-    def est_check(num):
+    def paso3(num2,num1):
+        print("b")
+        if num2.isdigit():
+            if int(num2) != 0:
+                print("es numero > 0")
+            else:
+                return 0
+        else:
+            return 0
+        print("Listo")
+        fila = 0
+        num2 = int(num2)
+        opts = [0 for x in range(0,num1)]
+        for ii in range(0,num1):
+            opts[ii] = "Q"+str(ii)
+        frame3 = tk.Frame(ventana)
+        frame3.grid(row=2, column=0)
+        for ii in range(0,num1):
+            texto = "Conexiones para Q"+str(ii)
+            text = tk.Label(frame3, text=texto)
+            text.grid(row=fila, column=0)
+            fila = fila + 1
+            for jj in range(0,num2):
+                texto = "Transicion para "+chr(97+jj)
+                text = tk.Label(frame3, text=texto)
+                text.grid(row=fila, column=0)
+                opt = ttk.Combobox(frame3,values=opts)
+                opt.grid(row=fila, column=1)
+                fila = fila + 1
+        btn = tk.Button(frame3, text="OK")
+        btn.grid(row=fila+1, column=0)
+
+
+    def paso2(num1):
         print("a")
+        if num1.isdigit():
+            if int(num1) != 0:
+                print("es numero > 0")
+            else:
+                return 0
+        else:
+            return 0
+        print("Listo")
+        num1 = int(num1)
+        frame2 = tk.Frame(ventana)
+        frame2.grid(row=1, column=0)
+        text = tk.Label(frame2, text="Cantidad de letras (abc..): ")
+        text.grid(row=0, column=0)
+        ent2 = tk.Entry(frame2)
+        ent2.grid(row=0, column=1)
+        btn = tk.Button(frame2, text="OK", command=lambda: paso3(ent2.get(),num1))
+        btn.grid(row=0, column=2)
+
     ventana = tk.Tk()
     # ventana.geometry('640x510+0+0')
     ventana.title('Editor de automatas')
@@ -315,6 +366,6 @@ if option == 2:
     text.grid(row=0, column=0)
     ent = tk.Entry(frame1)
     ent.grid(row=0, column=1)
-    btn = tk.Button(frame1, text="OK")
+    btn = tk.Button(frame1, text="OK", command=lambda: paso2(ent.get()))
     btn.grid(row=0, column=2)
     ventana.mainloop()
