@@ -9,7 +9,7 @@ def draw(alfabeto, estados, inicio, trans, final):
         if e in final:
             g.node(e, shape="doublecircle")
         else:
-            g.node(e)
+            g.node(e, shape="circle")
         if e in inicio:
             g.edge('ini',e)
 

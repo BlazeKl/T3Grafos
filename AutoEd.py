@@ -7,11 +7,13 @@
 #Oscar Munos Retamal
 #
 #librerias
+from funciones.ingreso_auto import est
 import tkinter as tk
 from tkinter import ttk
 import graphviz as gv
 from funciones.clasegrafo import grafo
 from funciones.claseauto import automata
+from PIL import Image, ImageTk
 
 #variables
 global pos_x, pos_y, click, vert, cant_v, cant_a, j, grafo_n, peso
@@ -93,11 +95,11 @@ def add_arista(event,i, x, y):
 
 def detalles():
     menu = tk.Tk()
-    menu.title('Detalles de grafo')
+    menu.title('Detalles de grafo arbol original')
     menu.resizable(0,0)
     frame1 = tk.Frame(menu)
     frame1.grid(row=0, column=0)
-    text = tk.Label(frame1, text="Peso")
+    text = tk.Label(frame1, text="Peso Arbol Original")
     text.grid(row=0, column=0)
     frame2 = tk.Frame(menu)
     frame2.grid(row=1, column=0)
@@ -306,6 +308,9 @@ if option == 1:
 if option == 2:
     def final(num1,num2,tran,vinit,fin):
         print("paso final")
+        if not vinit.get():
+            return 0
+        print("Listo")
         print("//Lista de datos//")
         print("Estados: ",+num1)
         print("Letras: ",+num2)
@@ -316,15 +321,43 @@ if option == 2:
         print("Finales")
         for ii in range(0,num1):
             print("Q",+ii,": ",+fin[ii].get())
+        cont = 0
         estados = []
         transiciones = []
-        inical = []
+        inicial = [vinit.get()]
         alfa = []
-        terminal = ()
+        terminal = []
         for ii in range(0,num1):
-            estados.append("Q",+str(ii))
-        for ii in range(0,num2*num1):
-            transiciones.append(("Q","Q","Q"))
+            estados.append("Q"+str(ii))
+        for ii in range(0,num1):
+            for jj in range(0,num2):
+                transiciones.append(("Q"+str(ii),tran[cont].get(),chr(97+jj)))
+                cont = cont + 1
+        for ii in range(0,num2):
+            alfa.append(chr(97+ii))
+        for ii in range(0,num1):
+            if fin[ii].get() == 1:
+                terminal.append("Q"+str(ii))
+        print("//Datos transformados para clase automata")
+        print(estados)
+        print(transiciones)
+        print(inicial)
+        print(alfa)
+        print(terminal)
+        auto = automata()
+        auto.set_estados(estados)
+        auto.set_tran(transiciones)
+        auto.set_inicial(inicial)
+        auto.set_alfa(alfa)
+        auto.set_final(terminal)
+        auto.bdraw()
+        load = Image.open("Digraph.gv.gif")
+        render = ImageTk.PhotoImage(load)
+        frame5 = tk.Frame(ventana)
+        frame5.grid(row=4, column=0)
+        img = tk.Label(frame5, image=render)
+        img.image = render
+        img.grid(row=0, column=0)
 
     def paso4(num2,num1,tran): # num1 = cantidad de estados, num2 = cantidad de letras (abc), inter = arreglo de intersecciones
         print("paso 3")

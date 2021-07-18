@@ -4,21 +4,15 @@ class automata:
     def __init__(self):
         self.estados = []
         self.transiciones = []
-        self.inical = []
+        self.inicial = []
         self.alfa = []
-        self.terminal = ()
+        self.final = []
 
     def set_estados(self,input):
         self.estados = input
 
-    def app_estados(self,input):
-        self.estados.append(input)
-
     def set_tran(self,input):
         self.transiciones = input
-
-    def app_tran(self,input):
-        self.transiciones.append(input)
 
     def set_inicial(self,input):
         self.inicial = input
@@ -27,10 +21,8 @@ class automata:
         self.alfa = input
 
     def set_final(self,input):
-        self.terminal = input
-
-    def app_final(self,input):
-        self.terminal.append(input)
+        self.final = input
+        print(input)
 
     def bdraw(self):
-        draw(self.estados,self.transiciones,self.inical,self.alfa,self.terminal)
+        draw(self.alfa,self.estados,self.inicial,self.transiciones,self.final)
