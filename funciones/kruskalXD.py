@@ -2,8 +2,6 @@
 #n : cantidad de vertices AKA tamanio matriz
 #v_ini : el primer vertice que selecciona el usuario
 
-from numpy import amin
-
 def adyacencia_peso(x, n):
     # -*- coding:utf-8 -*-
 # Implementación del algoritmo Kruskal

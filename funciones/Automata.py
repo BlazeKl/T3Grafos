@@ -52,7 +52,6 @@ print ("Ingrese Cantidad de Estados: ");
 cant_estados=int(input())
 estados=[]
 for i in range(1,cant_estados+1):
-    
     nuevoEstado=input("Ingrese Estado N°{}: ".format(i))
     nuevoEstado=nuevoEstado.upper()
     estados.append(nuevoEstado)
@@ -62,7 +61,7 @@ cant_Alf=int(input("Ingrese la cantidad de Alfabeto: "))
 alf=[]
 for i in range(0,cant_Alf):
     
-    nuevoAlf=int(input("Ingrese Alfabeto N°{}: ".format(i)))
+    nuevoAlf=input("Ingrese Alfabeto N°{}: ".format(i))
     alf.append(nuevoAlf)
 
 for i in range(0,cant_estados):
@@ -91,7 +90,7 @@ while(True):
             print("Elemento Invalido ")
 
     while(True):
-        alfa=int(input("Ingrese Elemento de Alfabeto: "))
+        alfa=input("Ingrese Elemento de Alfabeto: ")
         if alfa in alf:
             break
         else:
@@ -137,18 +136,14 @@ for i in range(1,cant_Terminal+1):
     nuevoTerminal=nuevoTerminal.upper()
     terminal.append(nuevoTerminal)
 
-if __name__ == '__main__':
-    # estados = ["A","B","C","E","F","H"]
-    # trans = [("A","B", 1),("A","E",0),("A","E",1),("A","A",1),("A","D",1),("F","F",1),("D","C",1),("B","A",0), ("E","C",0),("F","D",0), ("C","A",0), ("B","B", 1),("H","C",0)]
-    # inicial = ["A"]
-    # alf = [0,1]
-    # terminal = ("Q2","Q5")
+# if __name__ == '__main__':
+#     # estados = ["A","B","C","E","F","H"]
+#     # trans = [("A","B", 1),("A","E",0),("A","E",1),("A","A",1),("A","D",1),("F","F",1),("D","C",1),("B","A",0), ("E","C",0),("F","D",0), ("C","A",0), ("B","B", 1),("H","C",0)]
+#     # inicial = ["A"]
+#     # alf = [0,1]
+#     # terminal = ("Q2","Q5")
 
-    draw(alf, estados, inicial, trans, terminal)
-
-
-
-
+draw(alf, estados, inicial, trans, terminal)
 
 
 

@@ -127,31 +127,31 @@ def detalles():
     tabla.grid(row=0, column=1)
     tabla.insert(tk.END, grafo_n.n_regiones(cant_a,cant_v))
     kruskal = grafo_n.l_kruskal(cant_v)
-    frame4 = tk.Frame(menu)
-    frame4.grid(row=3, column=0)
-    text = tk.Label(frame4, text="Kruskal")
-    text.grid(row=0, column=0)
-    frame5 = tk.Frame(menu)
-    frame5.grid(row=4, column=0)
-    for ii in range(0, cant_v+1):
-        tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
-        tabla.grid(row=0, column=ii)
-        tabla.insert(tk.END, chr(96+ii))
-    for ii in range(0, cant_v+1):
-        tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
-        tabla.grid(row=ii, column=0)
-        tabla.insert(tk.END, chr(96+ii))
-    for ii in range(0, cant_v):
-        for jj in range(0, cant_v):
-            if kruskal[ii][jj] > 0:
-                tabla = tk.Entry(frame5, width=5, bg='blue', fg='white')
-            else:
-                tabla = tk.Entry(frame5, width=5, bg='black', fg='white')
-            tabla.grid(row=1+ii, column=1+jj)
-            tabla.insert(tk.END, kruskal[ii][jj])
-    tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
-    tabla.grid(row=0, column=0)
-    tabla.insert(tk.END, "K")
+    # frame4 = tk.Frame(menu)
+    # frame4.grid(row=3, column=0)
+    # text = tk.Label(frame4, text="Kruskal")
+    # text.grid(row=0, column=0)
+    # frame5 = tk.Frame(menu)
+    # frame5.grid(row=4, column=0)
+    # for ii in range(0, cant_v+1):
+    #     tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
+    #     tabla.grid(row=0, column=ii)
+    #     tabla.insert(tk.END, chr(96+ii))
+    # for ii in range(0, cant_v+1):
+    #     tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
+    #     tabla.grid(row=ii, column=0)
+    #     tabla.insert(tk.END, chr(96+ii))
+    # for ii in range(0, cant_v):
+    #     for jj in range(0, cant_v):
+    #         if kruskal[ii][jj] > 0:
+    #             tabla = tk.Entry(frame5, width=5, bg='blue', fg='white')
+    #         else:
+    #             tabla = tk.Entry(frame5, width=5, bg='black', fg='white')
+    #         tabla.grid(row=1+ii, column=1+jj)
+    #         tabla.insert(tk.END, kruskal[ii][jj])
+    # tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
+    # tabla.grid(row=0, column=0)
+    # tabla.insert(tk.END, "K")
     # frame6 = tk.Frame(menu)
     # frame6.grid(row=5, column=0)
     # prim = grafo_n.l_prim(cant_v,0)
@@ -303,6 +303,13 @@ if option == 1:
     ventana.mainloop()
 
 if option == 2:
+    def paso4(num2,num1,inter):
+        print("a")
+        ends = [0 for x in range(0,num1)]
+        print(inter[1].get())
+        frame4 = tk.Frame(ventana)
+        frame4.grid(row=3, column=0)
+
     def paso3(num2,num1):
         print("b")
         if num2.isdigit():
@@ -316,6 +323,7 @@ if option == 2:
         fila = 0
         num2 = int(num2)
         opts = [0 for x in range(0,num1)]
+        tran = [0 for x in range(0,num1*num2)]
         for ii in range(0,num1):
             opts[ii] = "Q"+str(ii)
         frame3 = tk.Frame(ventana)
@@ -329,17 +337,17 @@ if option == 2:
                 texto = "Transicion para "+chr(97+jj)
                 text = tk.Label(frame3, text=texto)
                 text.grid(row=fila, column=0)
-                opt = ttk.Combobox(frame3,values=opts)
-                opt.grid(row=fila, column=1)
+                tran[jj] = ttk.Combobox(frame3,values=opts)
+                tran[jj].grid(row=fila, column=1)
                 fila = fila + 1
-        btn = tk.Button(frame3, text="OK")
+        btn = tk.Button(frame3, text="OK", command=lambda: paso4(num2,num1,tran))
         btn.grid(row=fila+1, column=0)
+        
 
-
-    def paso2(num1):
+    def paso2(num1): #Ingresar abc, verifica si el numero de estados es un numero > 0
         print("a")
         if num1.isdigit():
-            if int(num1) != 0:
+            if int(num1) > 0:
                 print("es numero > 0")
             else:
                 return 0

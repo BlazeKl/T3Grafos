@@ -85,15 +85,21 @@
 
 print("estados del automata 1")
 
-print ("ingrese cantidad de estados del automata 1 :")
-cant_est_auto1 = int(input())
+def est():
+    
+    print ("ingrese cantidad de estados del automata  :")
+    cant_est_auto = int(input())
 
-estados1= ["a" for x in range(cant_est_auto1)]
+    estados= ["a" for x in range(cant_est_auto)]
 
-for i in range(0,cant_est_auto1):
-    print("ingrese estado ", (i + 1),": ")
-    a = input()
-    estados1[i] = a
+    for i in range(0,cant_est_auto):
+        print("ingrese estado ", (i + 1),": ")
+        a = input()
+        estados.append(a)
+
+    return estados
+
+
 
 
 
