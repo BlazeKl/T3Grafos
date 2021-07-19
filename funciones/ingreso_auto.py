@@ -83,7 +83,7 @@
 
  #estados automata 1
 
-print("estados del automata 1")
+# print("estados del automata 1")
 
 def est():
     

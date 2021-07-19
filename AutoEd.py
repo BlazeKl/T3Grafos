@@ -7,10 +7,9 @@
 #Oscar Munos Retamal
 #
 #librerias
-from funciones.ingreso_auto import est
+
 import tkinter as tk
 from tkinter import ttk
-import graphviz as gv
 from funciones.clasegrafo import grafo
 from funciones.claseauto import automata
 from PIL import Image, ImageTk
