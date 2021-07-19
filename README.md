@@ -1,5 +1,12 @@
-# T3grafos
-Automatas en python
+# T3grafosyautomatas
+Arboles y automatas en python
+
+Grupo N1
+* Felipe Antonio Perez Cares
+* Alex Pino Moya
+* Alex Phillips Bidart Orellana
+* Pablo Andrés Sepúlveda Fernández
+* Oscar Ambrosio Muñoz Retamal
 
 ## Dependencias
 * Python
