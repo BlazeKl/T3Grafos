@@ -121,65 +121,7 @@ def detalles():
     tabla = tk.Entry(frame2, width=5, bg='green', fg='white')
     tabla.grid(row=0, column=0)
     tabla.insert(tk.END, "P")
-    # frame3 = tk.Frame(menu)
-    # frame3.grid(row=2, column=0)
-    # text = tk.Label(frame3, text="Numero de regiones : ")
-    # text.grid(row=0, column=0)
-    # tabla = tk.Entry(frame3, width=5, bg='black', fg='white')
-    # tabla.grid(row=0, column=1)
-    # tabla.insert(tk.END, grafo_n.n_regiones(cant_a,cant_v))
-    # kruskal = grafo_n.l_kruskal(cant_v)
-    # frame4 = tk.Frame(menu)
-    # frame4.grid(row=3, column=0)
-    # text = tk.Label(frame4, text="Kruskal")
-    # text.grid(row=0, column=0)
-    # frame5 = tk.Frame(menu)
-    # frame5.grid(row=4, column=0)
-    # for ii in range(0, cant_v+1):
-    #     tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
-    #     tabla.grid(row=0, column=ii)
-    #     tabla.insert(tk.END, chr(96+ii))
-    # for ii in range(0, cant_v+1):
-    #     tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
-    #     tabla.grid(row=ii, column=0)
-    #     tabla.insert(tk.END, chr(96+ii))
-    # for ii in range(0, cant_v):
-    #     for jj in range(0, cant_v):
-    #         if kruskal[ii][jj] > 0:
-    #             tabla = tk.Entry(frame5, width=5, bg='blue', fg='white')
-    #         else:
-    #             tabla = tk.Entry(frame5, width=5, bg='black', fg='white')
-    #         tabla.grid(row=1+ii, column=1+jj)
-    #         tabla.insert(tk.END, kruskal[ii][jj])
-    # tabla = tk.Entry(frame5, width=5, bg='green', fg='white')
-    # tabla.grid(row=0, column=0)
-    # tabla.insert(tk.END, "K")
-    # frame6 = tk.Frame(menu)
-    # frame6.grid(row=5, column=0)
-    # prim = grafo_n.l_prim(cant_v,0)
-    # text = tk.Label(frame6, text="PRIM")
-    # text.grid(row=0, column=0)
-    # frame7 = tk.Frame(menu)
-    # frame7.grid(row=6, column=0)
-    # for ii in range(0, cant_v+1):
-    #     tabla = tk.Entry(frame7, width=5, bg='green', fg='white')
-    #     tabla.grid(row=0, column=ii)
-    #     tabla.insert(tk.END, chr(96+ii))
-    # for ii in range(0, cant_v+1):
-    #     tabla = tk.Entry(frame7, width=5, bg='green', fg='white')
-    #     tabla.grid(row=ii, column=0)
-    #     tabla.insert(tk.END, chr(96+ii))
-    # for ii in range(0, cant_v):
-    #     for jj in range(0, cant_v):
-    #         if prim[ii][jj] > 0:
-    #             tabla = tk.Entry(frame7, width=5, bg='blue', fg='white')
-    #         else:
-    #             tabla = tk.Entry(frame7, width=5, bg='black', fg='white')
-    #         tabla.grid(row=1+ii, column=1+jj)
-    #         tabla.insert(tk.END, prim[ii][jj])
-    # tabla = tk.Entry(frame7, width=5, bg='green', fg='white')
-    # tabla.grid(row=0, column=0)
-    # tabla.insert(tk.END, "P")
+    
     print(grafo_n.l_kruskal2(cant_v))
     menu.mainloop
 

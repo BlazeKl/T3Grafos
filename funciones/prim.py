@@ -47,17 +47,6 @@ def prim_tp(x, n, v_ini):
                             if(aux2 != aux):
                                 hx = i #Arreglar posicion erronea
 
-                            # print(min)
-                            # print(hy)
-                            # if state == 0:
-                            #     min = amin(x[j])
-                            #     hx = i
-                            #     hy = j
-                            # elif min > amin(x[j]):
-                            #     min = amin(x[j])
-                            #     hx = i
-                            #     hy = j
-
         y[hx][hy] = min
         y[hy][hx] = min
         v_added[contaux] = hy
